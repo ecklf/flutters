@@ -36,8 +36,11 @@ class FluttersGame extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
+    birdPlayer.startFlutter();
     print('work');
   }
 
-  void onTapUp(TapUpDetails d) {}
+  void onTapUp(TapUpDetails d) {
+    birdPlayer.endFlutter();
+  }
 }
