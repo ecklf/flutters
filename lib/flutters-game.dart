@@ -6,6 +6,7 @@ import 'package:flutters/components/background.dart';
 import 'package:flutters/components/bird.dart';
 import 'package:flutters/components/floor.dart';
 import 'package:flutters/components/level.dart';
+import 'package:flutters/components/obstacle.dart';
 
 class FluttersGame extends Game {
   double currentHeight = 0;
@@ -40,8 +41,8 @@ class FluttersGame extends Game {
   void resize(Size size) {
     viewport = size;
     characterSize = viewport.width / 6;
-    // birdPosY = viewport.height - floorHeight - characterSize + birdPosYOffset;
-    birdPosY = viewport.height - characterSize;
+    birdPosY = viewport.height - floorHeight - characterSize + birdPosYOffset;
+    // birdPosY = viewport.height - characterSize;
   }
 
   void render(Canvas c) {
@@ -51,14 +52,16 @@ class FluttersGame extends Game {
     c.translate(0, currentHeight);
 
     currentLevel.levelObstacles.forEach((obstacle) {
+      if (isObstacleInRange(obstacle)) {
+        obstacle.render(c);
+      }
       // TODO: if (comp.position is near the currentHeight) { // no idea how PositionComponents calculate the position LOL
-      obstacle.render(c);
 
       // }
       // print('bird ${birdPlayer.toCollisionRect()}');
       // print(obstacle.toRect());
-      groundFloor.render(c);
     });
+    groundFloor.render(c);
     c.restore();
 
     birdPlayer.render(c);
@@ -72,15 +75,23 @@ class FluttersGame extends Game {
   }
 
   void checkCollision() {
-    // 764.5 812
     currentLevel.levelObstacles.forEach((obstacle) {
-      // print('bird ${birdPlayer.toCollisionRect()}');
-      // print(obstacle.toRect());
-      if (birdPlayer.toCollisionRect().overlaps(obstacle.toRect())) {
-        // TODO: handle gameover
-        print('woo');
+      if (isObstacleInRange(obstacle)) {
+        if (birdPlayer.toCollisionRect().overlaps(obstacle.toRect())) {
+          // TODO: handle gameover
+          obstacle.markHit();
+        }
       }
     });
+  }
+
+  bool isObstacleInRange(Obstacle obs) {
+    if (-obs.y < viewport.height + currentHeight &&
+        -obs.y > currentHeight - viewport.height) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void flutterHandler() {

@@ -34,7 +34,8 @@ class Bird extends GameObject implements Renderable {
   @override
   void render(Canvas c) {
     Paint paint = Paint();
-    paint.color = Color(0xffff0000);
+    // paint.color = Color(0xffff0000);
+    paint.color = Color(0x00000000);
     rect = Rect.fromLTWH(0, 0, width, height);
     c.save();
     c.translate(x, y);
@@ -82,7 +83,7 @@ class Bird extends GameObject implements Renderable {
   Rect toCollisionRect() {
     return Rect.fromLTWH(
         x + collisionToleranceX,
-        y + game.currentHeight + collisionToleranceY,
+        y - game.currentHeight + collisionToleranceY,
         width - collisionToleranceX,
         height - collisionToleranceY);
   }
