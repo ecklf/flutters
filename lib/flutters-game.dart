@@ -15,6 +15,7 @@ class FluttersGame extends Game {
   double flutterIntensity = 20;
   double floorHeight = 250;
   double birdPosY;
+  double birdPosYOffset = 8;
 
   Size viewport;
   Background skyBackground;
@@ -39,7 +40,7 @@ class FluttersGame extends Game {
   void resize(Size size) {
     viewport = size;
     characterSize = viewport.width / 6;
-    // birdPosY = viewport.height - floorHeight - characterSize + 8;
+    // birdPosY = viewport.height - floorHeight - characterSize + birdPosYOffset;
     birdPosY = viewport.height - characterSize;
   }
 
@@ -71,9 +72,13 @@ class FluttersGame extends Game {
   }
 
   void checkCollision() {
+    // 764.5 812
     currentLevel.levelObstacles.forEach((obstacle) {
+      // print('bird ${birdPlayer.toCollisionRect()}');
+      // print(obstacle.toRect());
       if (birdPlayer.toCollisionRect().overlaps(obstacle.toRect())) {
         // TODO: handle gameover
+        print('woo');
       }
     });
   }

@@ -19,7 +19,7 @@ class Level {
     double randomHeight;
     double posX;
     double posY;
-    for (int i = 2; i < 10; i++) {
+    for (int i = 2; i < 5; i++) {
       randomWidth = (rng.nextDouble() * 30) + 10;
       randomHeight = (rng.nextDouble() * 100) + 70;
       isLeft = rng.nextBool();
