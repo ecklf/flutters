@@ -7,8 +7,15 @@ import 'package:flutters/components/bird.dart';
 import 'package:flutters/components/floor.dart';
 import 'package:flutters/components/level.dart';
 import 'package:flutters/components/obstacle.dart';
+import 'package:flutters/components/text.dart';
+
+enum GameState {
+  playing,
+  gameOver,
+}
 
 class FluttersGame extends Game {
+  GameState currentGameState = GameState.playing;
   double currentHeight = 0;
   bool isFluttering = false;
   double flutterValue = 0;
@@ -23,6 +30,10 @@ class FluttersGame extends Game {
   Floor groundFloor;
   Level currentLevel;
   Bird birdPlayer;
+
+  Text scoreText;
+  Text floorText;
+
   double characterSize;
 
   FluttersGame() {
@@ -36,13 +47,15 @@ class FluttersGame extends Game {
         floorHeight, 0xff48BB78);
     currentLevel = Level(this);
     birdPlayer = Bird(this, 0, birdPosY, characterSize, characterSize);
+    scoreText = Text(this, '0', 30.0, 60);
+    floorText =
+        Text(this, 'Tap to flutter!', 40.0, viewport.height - floorHeight / 2);
   }
 
   void resize(Size size) {
     viewport = size;
     characterSize = viewport.width / 6;
     birdPosY = viewport.height - floorHeight - characterSize + birdPosYOffset;
-    // birdPosY = viewport.height - characterSize;
   }
 
   void render(Canvas c) {
@@ -50,21 +63,17 @@ class FluttersGame extends Game {
 
     c.save();
     c.translate(0, currentHeight);
-
     currentLevel.levelObstacles.forEach((obstacle) {
       if (isObstacleInRange(obstacle)) {
         obstacle.render(c);
       }
-      // TODO: if (comp.position is near the currentHeight) { // no idea how PositionComponents calculate the position LOL
-
-      // }
-      // print('bird ${birdPlayer.toCollisionRect()}');
-      // print(obstacle.toRect());
     });
     groundFloor.render(c);
+    floorText.render(c);
     c.restore();
 
     birdPlayer.render(c);
+    scoreText.render(c);
   }
 
   void update(double t) {
@@ -72,13 +81,14 @@ class FluttersGame extends Game {
       if (isObstacleInRange(obstacle)) {
         obstacle.update(t);
       }
-      // TODO: if (comp.position is near the currentHeight) { // no idea how PositionComponents calculate the position LOL
-
-      // }
-      // print('bird ${birdPlayer.toCollisionRect()}');
-      // print(obstacle.toRect());
     });
     birdPlayer.update(t);
+
+    scoreText.setText(currentHeight.floor().toString());
+    // Update scoreText
+    scoreText.setText(currentHeight.floor().toString());
+    scoreText.update(t);
+    floorText.update(t);
     // Game tasks
     flutterHandler();
     checkCollision();
@@ -88,11 +98,15 @@ class FluttersGame extends Game {
     currentLevel.levelObstacles.forEach((obstacle) {
       if (isObstacleInRange(obstacle)) {
         if (birdPlayer.toCollisionRect().overlaps(obstacle.toRect())) {
-          // TODO: handle gameover
           obstacle.markHit();
+          gameOver();
         }
       }
     });
+  }
+
+  void gameOver() {
+    currentGameState = GameState.gameOver;
   }
 
   bool isObstacleInRange(Obstacle obs) {
@@ -132,6 +146,11 @@ class FluttersGame extends Game {
     birdPlayer.startFlutter();
     isFluttering = true;
     flutterValue = flutterIntensity;
+    // TODO
+    // if (currentGameState == GameState.gameOver &&
+    //     gameOverDialog.buttonRect.contains(d.globalPosition)) {
+    //   restartGame();
+    // }
   }
 
   void onTapUp(TapUpDetails d) {

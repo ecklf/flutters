@@ -48,7 +48,7 @@ class Obstacle extends GameObject implements Renderable {
   }
 
   void markHit() {
-    paint.color = Color(0xffff0000);
+    paint.color = Color(0xffff5a5f);
   }
 
   Rect toRect() {
