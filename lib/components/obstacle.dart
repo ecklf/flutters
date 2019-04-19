@@ -19,7 +19,7 @@ class Obstacle extends GameObject implements Renderable {
       : super(game, x, y, width, height) {
     this.isMoving = isMoving;
     movementSpeed = game.viewport.width / 4;
-    // Make a random isMoving direction
+    // Random isMoving direction
     direction = rng.nextBool() == true ? 1 : -1;
     paint = Paint();
     paint.color = Color(colorCode);

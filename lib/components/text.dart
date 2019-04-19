@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutters/components/core/renderable.dart';
 import 'package:flutters/flutters-game.dart';
 
-class Text implements Renderable {
+class TextRenderable implements Renderable {
   final FluttersGame game;
   TextPainter painter;
   TextStyle textStyle;
@@ -12,7 +12,7 @@ class Text implements Renderable {
   double posY;
   Offset position;
 
-  Text(this.game, String text, double fontSize, double posY) {
+  TextRenderable(this.game, String text, double fontSize, double posY) {
     this.textValue = text;
     this.posY = posY;
     painter = TextPainter(

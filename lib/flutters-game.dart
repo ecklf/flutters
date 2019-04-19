@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutters/components/background.dart';
 import 'package:flutters/components/bird.dart';
+import 'package:flutters/components/dialog.dart';
 import 'package:flutters/components/floor.dart';
 import 'package:flutters/components/level.dart';
 import 'package:flutters/components/obstacle.dart';
@@ -16,26 +17,24 @@ enum GameState {
 
 class FluttersGame extends Game {
   GameState currentGameState = GameState.playing;
-  double currentHeight = 0;
-  bool isFluttering = false;
-  double flutterValue = 0;
-  // TODO: magic value removal
-  double flutterIntensity = 20;
-  double floorHeight = 250;
-  double birdPosY;
-  double birdPosYOffset = 8;
-
   Size viewport;
   Background skyBackground;
   Floor groundFloor;
   Level currentLevel;
   Bird birdPlayer;
-
-  Text scoreText;
-  Text floorText;
+  TextRenderable scoreText;
+  TextRenderable floorText;
+  Dialog gameOverDialog;
 
   double characterSize;
-
+  double birdPosY;
+  double birdPosYOffset = 8;
+  bool isFluttering = false;
+  double flutterValue = 0;
+  double flutterIntensity = 20;
+  double floorHeight = 250;
+  // Game Score
+  double currentHeight = 0;
   FluttersGame() {
     initialize();
   }
@@ -47,9 +46,10 @@ class FluttersGame extends Game {
         floorHeight, 0xff48BB78);
     currentLevel = Level(this);
     birdPlayer = Bird(this, 0, birdPosY, characterSize, characterSize);
-    scoreText = Text(this, '0', 30.0, 60);
-    floorText =
-        Text(this, 'Tap to flutter!', 40.0, viewport.height - floorHeight / 2);
+    scoreText = TextRenderable(this, '0', 30.0, 60);
+    floorText = TextRenderable(
+        this, 'Tap to flutter!', 40.0, viewport.height - floorHeight / 2);
+    gameOverDialog = Dialog(this);
   }
 
   void resize(Size size) {
@@ -60,7 +60,6 @@ class FluttersGame extends Game {
 
   void render(Canvas c) {
     skyBackground.render(c);
-
     c.save();
     c.translate(0, currentHeight);
     currentLevel.levelObstacles.forEach((obstacle) {
@@ -74,6 +73,10 @@ class FluttersGame extends Game {
 
     birdPlayer.render(c);
     scoreText.render(c);
+
+    // TODO: move into gameOver state
+    if (currentGameState == GameState.gameOver) {}
+    // gameOverDialog.render(c);
   }
 
   void update(double t) {
@@ -83,8 +86,6 @@ class FluttersGame extends Game {
       }
     });
     birdPlayer.update(t);
-
-    scoreText.setText(currentHeight.floor().toString());
     // Update scoreText
     scoreText.setText(currentHeight.floor().toString());
     scoreText.update(t);
