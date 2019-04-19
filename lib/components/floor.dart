@@ -4,13 +4,13 @@ import 'package:flutters/components/core/gameobject.dart';
 import 'package:flutters/components/core/renderable.dart';
 import 'package:flutters/flutters-game.dart';
 
-class Obstacle extends GameObject implements Renderable {
-  bool isMoving;
+class Floor extends GameObject implements Renderable {
   Rect rect;
-  Obstacle(FluttersGame game, double x, double y, double width, double height,
-      bool isMoving)
+
+  Floor(FluttersGame game, double x, double y, double width, double height,
+      int colorCode)
       : super(game, x, y, width, height) {
-    this.isMoving = isMoving;
+    this.colorCode = colorCode;
   }
 
   @override
@@ -24,9 +24,5 @@ class Obstacle extends GameObject implements Renderable {
   @override
   void update(double t) {
     // TODO: implement update
-  }
-
-  Rect toRect() {
-    return Rect.fromLTWH(x, y, width, height);
   }
 }
