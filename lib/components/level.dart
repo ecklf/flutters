@@ -14,22 +14,34 @@ class Level {
   void generateObstacles() {
     levelObstacles = List<Obstacle>();
     Obstacle obstacle;
-    bool isLeft;
-    double randomWidth;
-    double randomHeight;
+    double obstacleWidth;
+    double obstacleHeight;
     double posX;
     double posY;
     for (int i = 2; i < 500; i++) {
-      randomWidth = (rng.nextDouble() * 30) + 10;
-      randomHeight = (rng.nextDouble() * 100) + 70;
-      isLeft = rng.nextBool();
+      bool isLeft = rng.nextBool();
+      bool isMoving = false;
+      int movingRng = rng.nextInt(5);
+
+      if (movingRng == 4) {
+        obstacleWidth = (rng.nextDouble() * (game.viewport.width * 0.2)) +
+            (game.viewport.width * 0.3);
+        obstacleHeight = game.viewport.height / 40;
+        isLeft = true;
+        isMoving = true;
+      } else {
+        obstacleWidth = (rng.nextDouble() * 30) + game.viewport.width / 40;
+        obstacleHeight = (rng.nextDouble() * 100) + game.viewport.height / 10;
+      }
+      // Position Obstacles
       posY = ((-i * 300) + game.viewport.height);
       if (isLeft) {
         posX = 0;
       } else {
-        posX = game.viewport.width - randomWidth;
+        posX = game.viewport.width - obstacleWidth;
       }
-      obstacle = Obstacle(game, posX, posY, randomWidth, randomHeight, false);
+      obstacle =
+          Obstacle(game, posX, posY, obstacleWidth, obstacleHeight, isMoving);
       // Add obstacles to level
       levelObstacles.add(obstacle);
     }

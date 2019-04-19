@@ -14,10 +14,10 @@ class Bird extends GameObject implements Renderable {
   ];
 
   // TODO: Adjust these values to have a more realistic collision
-  // final double collisionToleranceY = 15;
-  // final double collisionToleranceX = 10;
-  final double collisionToleranceX = 0;
-  final double collisionToleranceY = 0;
+  final double collisionToleranceY = 15;
+  final double collisionToleranceX = 10;
+  // final double collisionToleranceX = 0;
+  // final double collisionToleranceY = 0;
 
   Rect rect;
 

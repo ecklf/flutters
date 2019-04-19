@@ -68,6 +68,16 @@ class FluttersGame extends Game {
   }
 
   void update(double t) {
+    currentLevel.levelObstacles.forEach((obstacle) {
+      if (isObstacleInRange(obstacle)) {
+        obstacle.update(t);
+      }
+      // TODO: if (comp.position is near the currentHeight) { // no idea how PositionComponents calculate the position LOL
+
+      // }
+      // print('bird ${birdPlayer.toCollisionRect()}');
+      // print(obstacle.toRect());
+    });
     birdPlayer.update(t);
     // Game tasks
     flutterHandler();
