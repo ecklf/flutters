@@ -22,8 +22,8 @@ class FluttersGame extends Game {
   Floor groundFloor;
   Level currentLevel;
   Bird birdPlayer;
-  TextRenderable scoreText;
-  TextRenderable floorText;
+  TextComponent scoreText;
+  TextComponent floorText;
   Dialog gameOverDialog;
 
   double characterSize;
@@ -46,8 +46,8 @@ class FluttersGame extends Game {
         floorHeight, 0xff48BB78);
     currentLevel = Level(this);
     birdPlayer = Bird(this, 0, birdPosY, characterSize, characterSize);
-    scoreText = TextRenderable(this, '0', 30.0, 60);
-    floorText = TextRenderable(
+    scoreText = TextComponent(this, '0', 30.0, 60);
+    floorText = TextComponent(
         this, 'Tap to flutter!', 40.0, viewport.height - floorHeight / 2);
     gameOverDialog = Dialog(this);
   }
@@ -74,8 +74,8 @@ class FluttersGame extends Game {
     birdPlayer.render(c);
     scoreText.render(c);
 
-    // TODO: move into gameOver state
-    if (currentGameState == GameState.gameOver) {}
+    // // TODO: move into gameOver state
+    // if (currentGameState == GameState.gameOver) {}
     // gameOverDialog.render(c);
   }
 
@@ -86,11 +86,14 @@ class FluttersGame extends Game {
       }
     });
     birdPlayer.update(t);
-    // Update scoreText
+    // // Update scoreText
     scoreText.setText(currentHeight.floor().toString());
     scoreText.update(t);
     floorText.update(t);
-    // Game tasks
+
+    gameOverDialog.update(t);
+
+    // // Game tasks
     flutterHandler();
     checkCollision();
   }

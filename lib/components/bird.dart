@@ -4,10 +4,9 @@ import 'dart:math' as math;
 import 'package:flame/sprite.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutters/components/core/gameobject.dart';
-import 'package:flutters/components/core/renderable.dart';
 import 'package:flutters/flutters-game.dart';
 
-class Bird extends GameObject implements Renderable {
+class Bird extends GameObject {
   final List<List<Sprite>> characterSprites = [
     [Sprite('bird-0.png'), Sprite('bird-1.png')],
     [Sprite('bird-0-left.png'), Sprite('bird-1-left.png')]
@@ -20,20 +19,28 @@ class Bird extends GameObject implements Renderable {
   // final double collisionToleranceY = 0;
 
   Rect rect;
+  Paint paint;
+
+  double x;
+  double y;
+  double width;
+  double height;
+  double rotation;
 
   int direction = 1;
   int characterSpritesIndex = 0;
   int flutterFrame = 0;
   double movementSpeed;
 
-  Bird(FluttersGame game, double x, double y, double width, double height)
-      : super(game, x, y, width, height) {
+  Bird(FluttersGame game, this.x, this.y, this.width, this.height,
+      [this.rotation = 0])
+      : super(game) {
     movementSpeed = game.viewport.width / 2;
   }
 
   @override
   void render(Canvas c) {
-    Paint paint = Paint();
+    paint = Paint();
     // paint.color = Color(0xffff0000);
     paint.color = Color(0x00000000);
     rect = Rect.fromLTWH(0, 0, width, height);

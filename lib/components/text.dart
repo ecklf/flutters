@@ -1,19 +1,21 @@
 import 'dart:ui';
 
 import 'package:flutter/painting.dart';
-import 'package:flutters/components/core/renderable.dart';
+import 'package:flutters/components/core/gameobject.dart';
 import 'package:flutters/flutters-game.dart';
 
-class TextRenderable implements Renderable {
+class TextComponent extends GameObject {
   final FluttersGame game;
   TextPainter painter;
   TextStyle textStyle;
-  String textValue;
+  String displayString;
   double posY;
   Offset position;
 
-  TextRenderable(this.game, String text, double fontSize, double posY) {
-    this.textValue = text;
+  TextComponent(this.game, String text, double fontSize, double posY,
+      [int colorCode = 0xfffafafa])
+      : super(game) {
+    this.displayString = text;
     this.posY = posY;
     painter = TextPainter(
       textAlign: TextAlign.center,
@@ -21,14 +23,14 @@ class TextRenderable implements Renderable {
     );
     textStyle = TextStyle(
       fontFamily: 'Baloo',
-      color: Color(0xfffafafa),
+      color: Color(colorCode),
       fontSize: fontSize,
     );
     position = Offset.zero;
   }
 
   void setText(String text) {
-    this.textValue = text;
+    this.displayString = text;
   }
 
   @override
@@ -38,9 +40,9 @@ class TextRenderable implements Renderable {
 
   @override
   void update(double t) {
-    if ((painter.text?.text ?? '') != textValue) {
+    if ((painter.text?.text ?? '') != displayString) {
       painter.text = TextSpan(
-        text: textValue,
+        text: displayString,
         style: textStyle,
       );
       painter.layout();
