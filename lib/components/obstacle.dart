@@ -26,7 +26,7 @@ class Obstacle extends GameObject {
     // Random isMoving direction
     direction = rng.nextBool() == true ? 1 : -1;
     paint = Paint();
-    paint.color = Color(0xff484848);
+    paint.color = Color(0xff3D4852);
   }
 
   @override
@@ -52,7 +52,7 @@ class Obstacle extends GameObject {
   }
 
   void markHit() {
-    paint.color = Color(0xffff5a5f);
+    paint.color = Color(0xffEF5753);
   }
 
   Rect toRect() {

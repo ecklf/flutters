@@ -9,12 +9,14 @@ class TextComponent extends GameObject {
   TextPainter painter;
   TextStyle textStyle;
   String displayString;
-  double posY;
   Offset position;
+  double fontSize;
+  double posY;
 
   TextComponent(this.game, String text, double fontSize, double posY,
       [int colorCode = 0xfffafafa])
       : super(game) {
+    this.fontSize = fontSize;
     this.displayString = text;
     this.posY = posY;
     painter = TextPainter(
@@ -31,6 +33,11 @@ class TextComponent extends GameObject {
 
   void setText(String text) {
     this.displayString = text;
+  }
+
+  Rect toRect() {
+    return Rect.fromLTWH((game.viewport.width / 2) - (painter.width / 2),
+        posY - (painter.height / 2), painter.width, painter.height);
   }
 
   @override

@@ -18,7 +18,7 @@ class Level {
     double obstacleHeight;
     double posX;
     double posY;
-    for (int i = 2; i < 500; i++) {
+    for (int i = 2; i < 200; i++) {
       bool isLeft = rng.nextBool();
       bool isMoving = false;
       int movingRng = rng.nextInt(5);
@@ -26,12 +26,14 @@ class Level {
       if (movingRng == 4) {
         obstacleWidth = (rng.nextDouble() * (game.viewport.width * 0.2)) +
             (game.viewport.width * 0.3);
-        obstacleHeight = game.viewport.height / 40;
+        obstacleHeight = game.viewport.height / game.tileSize * 1.5;
         isLeft = true;
         isMoving = true;
       } else {
-        obstacleWidth = (rng.nextDouble() * 30) + game.viewport.width / 40;
-        obstacleHeight = (rng.nextDouble() * 100) + game.viewport.height / 10;
+        obstacleWidth =
+            (rng.nextDouble() * game.tileSize / 2) + game.viewport.width / 40;
+        obstacleHeight =
+            (rng.nextDouble() * game.tileSize) + game.viewport.height / 10;
       }
       // Position Obstacles
       posY = ((-i * 300) + game.viewport.height);

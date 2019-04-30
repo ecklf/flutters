@@ -9,6 +9,7 @@ import 'package:flutters/components/floor.dart';
 import 'package:flutters/components/level.dart';
 import 'package:flutters/components/obstacle.dart';
 import 'package:flutters/components/text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum GameState {
   playing,
@@ -26,7 +27,7 @@ class FluttersGame extends Game {
   TextComponent floorText;
   Dialog gameOverDialog;
 
-  double characterSize;
+  double tileSize;
   double birdPosY;
   double birdPosYOffset = 8;
   bool isFluttering = false;
@@ -45,7 +46,7 @@ class FluttersGame extends Game {
     groundFloor = Floor(this, 0, viewport.height - floorHeight, viewport.width,
         floorHeight, 0xff48BB78);
     currentLevel = Level(this);
-    birdPlayer = Bird(this, 0, birdPosY, characterSize, characterSize);
+    birdPlayer = Bird(this, 0, birdPosY, tileSize, tileSize);
     scoreText = TextComponent(this, '0', 30.0, 60);
     floorText = TextComponent(
         this, 'Tap to flutter!', 40.0, viewport.height - floorHeight / 2);
@@ -54,8 +55,8 @@ class FluttersGame extends Game {
 
   void resize(Size size) {
     viewport = size;
-    characterSize = viewport.width / 6;
-    birdPosY = viewport.height - floorHeight - characterSize + birdPosYOffset;
+    tileSize = viewport.width / 6;
+    birdPosY = viewport.height - floorHeight - tileSize + (tileSize / 8);
   }
 
   void render(Canvas c) {
@@ -74,28 +75,31 @@ class FluttersGame extends Game {
     birdPlayer.render(c);
     scoreText.render(c);
 
-    // // TODO: move into gameOver state
-    // if (currentGameState == GameState.gameOver) {}
-    // gameOverDialog.render(c);
+    if (currentGameState == GameState.gameOver) {
+      gameOverDialog.render(c);
+    }
   }
 
   void update(double t) {
-    currentLevel.levelObstacles.forEach((obstacle) {
-      if (isObstacleInRange(obstacle)) {
-        obstacle.update(t);
-      }
-    });
-    birdPlayer.update(t);
-    // // Update scoreText
-    scoreText.setText(currentHeight.floor().toString());
-    scoreText.update(t);
-    floorText.update(t);
+    if (currentGameState == GameState.playing) {
+      currentLevel.levelObstacles.forEach((obstacle) {
+        if (isObstacleInRange(obstacle)) {
+          obstacle.update(t);
+        }
+      });
+      skyBackground.update(t);
+      birdPlayer.update(t);
+      // // Update scoreText
+      scoreText.setText(currentHeight.floor().toString());
+      scoreText.update(t);
+      floorText.update(t);
 
-    gameOverDialog.update(t);
+      gameOverDialog.update(t);
 
-    // // Game tasks
-    flutterHandler();
-    checkCollision();
+      // // Game tasks
+      flutterHandler();
+      checkCollision();
+    }
   }
 
   void checkCollision() {
@@ -111,6 +115,13 @@ class FluttersGame extends Game {
 
   void gameOver() {
     currentGameState = GameState.gameOver;
+  }
+
+  void restartGame() {
+    birdPlayer.setRotation(0);
+    currentHeight = 0;
+    currentLevel.generateObstacles();
+    currentGameState = GameState.playing;
   }
 
   bool isObstacleInRange(Obstacle obs) {
@@ -146,18 +157,30 @@ class FluttersGame extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
-    // Make the bird flutter
-    birdPlayer.startFlutter();
-    isFluttering = true;
-    flutterValue = flutterIntensity;
-    // TODO
-    // if (currentGameState == GameState.gameOver &&
-    //     gameOverDialog.buttonRect.contains(d.globalPosition)) {
-    //   restartGame();
-    // }
+    if (currentGameState != GameState.gameOver) {
+      // Make the bird flutter
+      birdPlayer.startFlutter();
+      isFluttering = true;
+      flutterValue = flutterIntensity;
+      return;
+    }
+    if (gameOverDialog.playButton.contains(d.globalPosition)) {
+      restartGame();
+    }
+    print(d.globalPosition);
+    print(gameOverDialog.creditsText.toRect());
+    if (gameOverDialog.creditsText.toRect().contains(d.globalPosition)) {
+      print('launchurl');
+      _launchURL();
+    }
   }
 
   void onTapUp(TapUpDetails d) {
     birdPlayer.endFlutter();
+  }
+
+  _launchURL() async {
+    const url = 'https://github.com/impulse';
+    await launch(url);
   }
 }

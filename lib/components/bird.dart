@@ -12,14 +12,11 @@ class Bird extends GameObject {
     [Sprite('bird-0-left.png'), Sprite('bird-1-left.png')]
   ];
 
-  // TODO: Adjust these values to have a more realistic collision
-  final double collisionToleranceY = 15;
-  final double collisionToleranceX = 10;
-  // final double collisionToleranceX = 0;
-  // final double collisionToleranceY = 0;
-
   Rect rect;
   Paint paint;
+
+  double collisionToleranceX;
+  double collisionToleranceY;
 
   double x;
   double y;
@@ -35,13 +32,15 @@ class Bird extends GameObject {
   Bird(FluttersGame game, this.x, this.y, this.width, this.height,
       [this.rotation = 0])
       : super(game) {
+    collisionToleranceX = game.tileSize / 5;
+    collisionToleranceY = game.tileSize / 6;
     movementSpeed = game.viewport.width / 2;
   }
 
   @override
   void render(Canvas c) {
     paint = Paint();
-    // paint.color = Color(0xffff0000);
+    // Transparent bounding box
     paint.color = Color(0x00000000);
     rect = Rect.fromLTWH(0, 0, width, height);
     c.save();
@@ -88,10 +87,12 @@ class Bird extends GameObject {
   }
 
   Rect toCollisionRect() {
-    return Rect.fromLTWH(
-        x + collisionToleranceX,
-        y - game.currentHeight + collisionToleranceY,
-        width - collisionToleranceX,
-        height - collisionToleranceY);
+    double left = x;
+    double right = x + width;
+    double top = y - game.currentHeight;
+    double bottom = y - game.currentHeight + height;
+
+    return Rect.fromLTRB(left + collisionToleranceX, top + collisionToleranceX,
+        right - collisionToleranceX, bottom - collisionToleranceY);
   }
 }

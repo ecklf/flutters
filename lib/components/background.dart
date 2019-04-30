@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/rendering.dart';
+import 'package:flutters/components/cloud.dart';
 import 'package:flutters/components/core/gameobject.dart';
 import 'package:flutters/flutters-game.dart';
 
@@ -26,15 +27,19 @@ class Background extends GameObject {
 
     rect = Rect.fromLTWH(x, y, width, height);
     paint = new Paint()..shader = gradient.createShader(rect);
+    this.addChild(new Cloud(this.game, 0, game.tileSize * 1.7));
+    this.addChild(new Cloud(this.game, 0, game.tileSize * 2.9));
+    this.addChild(new Cloud(this.game, 0, game.tileSize * 4.4));
   }
 
   @override
   void render(Canvas c) {
     c.drawRect(rect, paint);
+    super.render(c);
   }
 
   @override
   void update(double t) {
-    // TODO: implement update
+    super.update(t);
   }
 }

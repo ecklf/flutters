@@ -15,7 +15,10 @@ void main() async {
     'bird-0.png',
     'bird-1.png',
     'bird-0-left.png',
-    'bird-1-left.png'
+    'bird-1-left.png',
+    'cloud-1.png',
+    'cloud-2.png',
+    'cloud-3.png',
   ]);
 
   FluttersGame game = FluttersGame();
