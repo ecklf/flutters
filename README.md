@@ -1,8 +1,8 @@
 # Flutters
 
-[![License: MIT](https://img.shields.io/github/license/impulse/flutters.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/impulse/flutters.svg?style=flat-square">
-<img alt="GitHub top language" src="https://img.shields.io/badge/Made%20with-Flutter-blue.svg?style=flat-square">
+[![License: MIT](https://img.shields.io/github/license/impulse/flutters.svg)](https://opensource.org/licenses/MIT)
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/impulse/flutters.svg">
+<img alt="GitHub top language" src="https://img.shields.io/badge/Made%20with-Flutter-blue.svg">
 
 ## About
 
