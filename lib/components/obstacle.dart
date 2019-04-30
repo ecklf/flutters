@@ -23,7 +23,6 @@ class Obstacle extends GameObject {
       FluttersGame game, this.x, this.y, this.width, this.height, this.isMoving)
       : super(game) {
     movementSpeed = game.viewport.width / 4;
-    // Random isMoving direction
     direction = rng.nextBool() == true ? 1 : -1;
     paint = Paint();
     paint.color = Color(0xff3D4852);

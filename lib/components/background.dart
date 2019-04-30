@@ -28,7 +28,6 @@ class Background extends GameObject {
     rect = Rect.fromLTWH(x, y, width, height);
     paint = new Paint()..shader = gradient.createShader(rect);
     this.addChild(new Cloud(this.game, 0, game.tileSize * 1.7));
-    this.addChild(new Cloud(this.game, 0, game.tileSize * 2.9));
     this.addChild(new Cloud(this.game, 0, game.tileSize * 4.4));
   }
 

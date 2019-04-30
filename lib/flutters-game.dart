@@ -73,10 +73,11 @@ class FluttersGame extends Game {
     c.restore();
 
     birdPlayer.render(c);
-    scoreText.render(c);
 
     if (currentGameState == GameState.gameOver) {
       gameOverDialog.render(c);
+    } else {
+      scoreText.render(c);
     }
   }
 
@@ -93,9 +94,7 @@ class FluttersGame extends Game {
       scoreText.setText(currentHeight.floor().toString());
       scoreText.update(t);
       floorText.update(t);
-
       gameOverDialog.update(t);
-
       // // Game tasks
       flutterHandler();
       checkCollision();
