@@ -25,6 +25,7 @@ void main() async {
   TapGestureRecognizer tapSink = TapGestureRecognizer();
   tapSink.onTapDown = game.onTapDown;
   tapSink.onTapUp = game.onTapUp;
+
   runApp(game.widget);
   flameUtil.addGestureRecognizer(tapSink);
 }
