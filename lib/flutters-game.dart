@@ -41,7 +41,8 @@ class FluttersGame extends Game {
   }
 
   void initialize() async {
-    resize(await Flame.util.initialDimensions());
+    Size initalDimensions = await Flame.util.initialDimensions();
+    resize(initalDimensions);
     skyBackground = Background(this, 0, 0, viewport.width, viewport.height);
     groundFloor = Floor(this, 0, viewport.height - floorHeight, viewport.width,
         floorHeight, 0xff48BB78);

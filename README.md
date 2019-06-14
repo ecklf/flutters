@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/github/license/impulse/flutters.svg)](https://opensource.org/licenses/MIT)
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/impulse/flutters.svg">
+[![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
 <img alt="GitHub top language" src="https://img.shields.io/badge/Made%20with-Flutter-blue.svg">
 
 ## About
@@ -13,9 +14,7 @@
 - Apps run on iOS and Android
 - Awesome hot-reloading
 - Compiles to native
-- Its simple to learn
-
-**Note:** Building this Project requires you to be at least on Flutter beta channel (for now).
+- It is simple to learn
 
 <p align="center">
 <img height="600" width="auto" src="screenshot.png" />
