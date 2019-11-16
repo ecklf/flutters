@@ -1,9 +1,8 @@
 import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutters/flutters-game.dart';
 
 void main() async {
@@ -21,7 +20,8 @@ void main() async {
     'cloud-3.png',
   ]);
 
-  FluttersGame game = FluttersGame();
+  final screenDimensions = await Flame.util.initialDimensions();
+  FluttersGame game = FluttersGame(screenDimensions);
   TapGestureRecognizer tapSink = TapGestureRecognizer();
   tapSink.onTapDown = game.onTapDown;
   tapSink.onTapUp = game.onTapUp;

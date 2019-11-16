@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:flame/flame.dart';
+
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutters/components/background.dart';
@@ -36,13 +36,8 @@ class FluttersGame extends Game {
   double floorHeight = 250;
   // Game Score
   double currentHeight = 0;
-  FluttersGame() {
-    initialize();
-  }
-
-  void initialize() async {
-    Size initalDimensions = await Flame.util.initialDimensions();
-    resize(initalDimensions);
+  FluttersGame(screenDimensions) {
+    resize(screenDimensions);
     skyBackground = Background(this, 0, 0, viewport.width, viewport.height);
     groundFloor = Floor(this, 0, viewport.height - floorHeight, viewport.width,
         floorHeight, 0xff48BB78);
