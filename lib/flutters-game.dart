@@ -86,12 +86,12 @@ class FluttersGame extends Game {
       });
       skyBackground.update(t);
       birdPlayer.update(t);
-      // // Update scoreText
+      // Update scoreText
       scoreText.setText(currentHeight.floor().toString());
       scoreText.update(t);
       floorText.update(t);
       gameOverDialog.update(t);
-      // // Game tasks
+      // Game tasks
       flutterHandler();
       checkCollision();
     }
