@@ -47,7 +47,7 @@ class TextComponent extends GameObject {
 
   @override
   void update(double t) {
-    if ((painter.text?.text ?? '') != displayString) {
+    if ((painter.text?.toString() ?? '') != displayString) {
       painter.text = TextSpan(
         text: displayString,
         style: textStyle,
