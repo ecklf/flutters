@@ -3,6 +3,7 @@ import 'package:flame/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutters/flutters-game.dart';
 
 void main() async {
@@ -28,6 +29,12 @@ void main() async {
   TapGestureRecognizer tapSink = TapGestureRecognizer();
   tapSink.onTapDown = game.onTapDown;
   tapSink.onTapUp = game.onTapUp;
+  RawKeyboard.instance.addListener((RawKeyEvent rawKeyEvent) {
+    final space = ' ';
+    if (rawKeyEvent.character == space) {
+      game.onTapDown(TapDownDetails());
+    }
+  });
 
   runApp(game.widget);
   flameUtil.addGestureRecognizer(tapSink);
