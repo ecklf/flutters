@@ -1,7 +1,7 @@
 # Flutters
 
-[![License: MIT](https://img.shields.io/github/license/impulse/flutters.svg)](https://opensource.org/licenses/MIT)
-<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/impulse/flutters.svg">
+[![License: MIT](https://img.shields.io/github/license/ecklf/flutters.svg)](https://opensource.org/licenses/MIT)
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ecklf/flutters.svg">
 [![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg)](https://flame-engine.org)
 <img alt="GitHub top language" src="https://img.shields.io/badge/Made%20with-Flutter-blue.svg">
 

@@ -45,7 +45,7 @@ class Dialog extends GameObject {
 
     buttonText = TextComponent(
         game, 'Play again', 25.0, playButton.center.dy, 0xfffafafa);
-    creditsText = TextComponent(game, 'Made with ❤ by @impulse', 20.0,
+    creditsText = TextComponent(game, 'Made with ❤ by @ecklf', 20.0,
         wrapper.bottom - padding, 0xff6CB2EB);
 
     children.add(titleText);

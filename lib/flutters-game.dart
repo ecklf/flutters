@@ -172,7 +172,7 @@ class FluttersGame extends Game {
   }
 
   _launchURL() async {
-    const url = 'https://github.com/impulse';
+    const url = 'https://github.com/ecklf';
     await launch(url);
   }
 }
